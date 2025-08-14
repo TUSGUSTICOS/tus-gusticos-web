@@ -1,102 +1,63 @@
-import API from './api';
+// usuarioService.js - Servicio para conectar con el backend
+import axios from 'axios';
 
-// Función auxiliar para manejar errores
-const handleError = (error, operation) => {
-  console.error(`Error en ${operation}:`, error);
-  
-  if (error.response) {
-    // El servidor respondió con un error
-    const message = error.response.data?.message || error.response.data || 'Error del servidor';
-    throw new Error(`${operation} falló: ${message}`);
-  } else if (error.request) {
-    // La solicitud se hizo pero no se recibió respuesta
-    throw new Error(`${operation} falló: No se pudo conectar con el servidor. Verifica que esté ejecutándose en http://localhost:8080`);
-  } else {
-    // Algo más causó el error
-    throw new Error(`${operation} falló: ${error.message}`);
-  }
-};
+// Configuración base de la API
+const API_URL = 'http://localhost:8080/api';
 
-// Obtener todos los usuarios
-export const getUsuarios = async () => {
+/**
+ * Servicio para login de usuario
+ * @param {string} identificador - Correo o teléfono
+ * @param {string} contrasena - Contraseña del usuario
+ * @returns {Promise} Respuesta del servidor
+ */
+export const loginUsuario = async (identificador, contrasena) => {
   try {
-    const response = await API.get('/usuarios');
-    console.log("📦 Datos recibidos del backend:", response.data);
+    // Determinar si es correo o teléfono
+    const esCorreo = identificador.includes('@');
     
-    // Validar que la respuesta sea un array
-    if (!Array.isArray(response.data)) {
-      console.warn("⚠️ La respuesta no es un array:", response.data);
-      return [];
+    const datos = {
+      [esCorreo ? 'correoElectronico' : 'telefono']: identificador,
+      contrasena: contrasena
+    };
+
+    const response = await axios.post(`${API_URL}/login`, datos);
+    
+    if (response.data.success) {
+      // Guardar datos del usuario en localStorage
+      localStorage.setItem('usuario', JSON.stringify(response.data.data));
+      return response.data;
     }
     
     return response.data;
   } catch (error) {
-    handleError(error, 'Obtener usuarios');
+    console.error('Error en login:', error);
+    throw error;
   }
 };
 
-// Crear un nuevo usuario
-export const createUsuario = async (usuario) => {
+/**
+ * Servicio para registrar nuevo usuario
+ * @param {Object} datosUsuario - Datos del usuario a registrar
+ * @returns {Promise} Respuesta del servidor
+ */
+export const registrarUsuario = async (datosUsuario) => {
   try {
-    // Validar datos antes de enviar
-    if (!usuario.nombre || !usuario.correo || !usuario.contrasena) {
-      throw new Error('Faltan campos obligatorios: nombre, correo y contraseña');
-    }
-    
-    const response = await API.post('/usuarios', usuario);
-    console.log("✅ Usuario creado:", response.data);
+    // Convertir nombres de campos al formato del backend
+    const usuarioFormateado = {
+      nombres: datosUsuario.nombres,
+      apellidos: datosUsuario.apellidos,
+      genero: datosUsuario.genero.toUpperCase(), // MASCULINO, FEMENINO, OTRO
+      fechaNacimiento: datosUsuario.fechaNacimiento,
+      correoElectronico: datosUsuario.correoElectronico,
+      telefono: datosUsuario.telefono,
+      contrasena: datosUsuario.contrasena
+    };
+
+    const response = await axios.post(`${API_URL}/registro`, usuarioFormateado);
     return response.data;
   } catch (error) {
-    handleError(error, 'Crear usuario');
+    console.error('Error en registro:', error);
+    throw error;
   }
 };
 
-// Actualizar un usuario por ID
-export const updateUsuario = async (id, usuario) => {
-  try {
-    if (!id) {
-      throw new Error('ID de usuario es requerido para actualizar');
-    }
-    
-    // Validar datos antes de enviar
-    if (!usuario.nombre || !usuario.correo) {
-      throw new Error('Faltan campos obligatorios: nombre y correo');
-    }
-    
-    const response = await API.put(`/usuarios/${id}`, usuario);
-    console.log("✅ Usuario actualizado:", response.data);
-    return response.data;
-  } catch (error) {
-    handleError(error, 'Actualizar usuario');
-  }
-};
-
-// Eliminar un usuario por ID
-export const deleteUsuario = async (id) => {
-  try {
-    if (!id) {
-      throw new Error('ID de usuario es requerido para eliminar');
-    }
-    
-    const response = await API.delete(`/usuarios/${id}`);
-    console.log("✅ Usuario eliminado, ID:", id);
-    return response.data;
-  } catch (error) {
-    handleError(error, 'Eliminar usuario');
-  }
-};
-
-// Obtener un usuario específico por ID (función adicional útil)
-export const getUsuarioById = async (id) => {
-  try {
-    if (!id) {
-      throw new Error('ID de usuario es requerido');
-    }
-    
-    const response = await API.get(`/usuarios/${id}`);
-    console.log("📦 Usuario obtenido:", response.data);
-    return response.data;
-  } catch (error) {
-    handleError(error, 'Obtener usuario por ID');
-  }
-};
