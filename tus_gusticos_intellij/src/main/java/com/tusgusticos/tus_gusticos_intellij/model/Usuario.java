@@ -41,6 +41,15 @@ public class Usuario {
     @Column(name = "fecha_registro", updatable = false)
     private LocalDateTime fechaRegistro;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol", nullable = false)
+    private Rol rol;
+
+    // Enum para los roles de usuario
+    public enum Rol {
+        Administrador, Cliente
+    }
+
     // Constructor vacío
     public Usuario() {
     }
@@ -55,12 +64,16 @@ public class Usuario {
         this.correoElectronico = correoElectronico;
         this.telefono = telefono;
         this.contrasena = contrasena;
+        this.rol = Rol.Cliente; // Por defecto es Cliente
     }
 
     // Método que se ejecuta antes de insertar en la base de datos
     @PrePersist
     protected void onCreate() {
         fechaRegistro = LocalDateTime.now();
+        if (rol == null) {
+            rol = Rol.Cliente; // Por defecto es Cliente
+        }
     }
 
     // Getters y Setters
@@ -135,8 +148,31 @@ public class Usuario {
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
-}
 
+    public Rol getRol() {
+        return rol;
+    }
+
+    // IMPORTANTE: Setter para el rol - asegúrate de que esté presente
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nombres='" + nombres + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", genero=" + genero +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", rol=" + rol +
+                '}';
+    }
+}
 
 
 

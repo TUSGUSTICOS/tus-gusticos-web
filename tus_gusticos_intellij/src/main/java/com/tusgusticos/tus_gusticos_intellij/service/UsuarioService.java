@@ -10,49 +10,32 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Servicio para manejar la lógica de negocio de usuarios
- */
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    /**
-     * Obtiene todos los usuarios
-     */
     public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    /**
-     * Obtiene un usuario por ID
-     */
     public Optional<Usuario> getUsuarioById(Integer id) {
         return usuarioRepository.findById(id);
     }
 
-    /**
-     * Registra un nuevo usuario
-     */
     public ApiResponse registrarUsuario(Usuario usuario) {
         try {
-            // Verificar si el correo ya existe
             if (usuarioRepository.existsByCorreoElectronico(usuario.getCorreoElectronico())) {
-                return ApiResponse.error("El correo electrónico ya está registrado");
+                return ApiResponse.error("El correo electronico ya esta registrado");
             }
 
-            // Verificar si el teléfono ya existe
             if (usuario.getTelefono() != null &&
                     usuarioRepository.existsByTelefono(usuario.getTelefono())) {
-                return ApiResponse.error("El número de teléfono ya está registrado");
+                return ApiResponse.error("El numero de telefono ya esta registrado");
             }
 
-            // Guardar el usuario
             Usuario usuarioGuardado = usuarioRepository.save(usuario);
-
-            // Limpiar la contraseña antes de devolver
             usuarioGuardado.setContrasena(null);
 
             return ApiResponse.success("Usuario registrado exitosamente", usuarioGuardado);
@@ -62,14 +45,10 @@ public class UsuarioService {
         }
     }
 
-    /**
-     * Realiza el login de un usuario
-     */
     public ApiResponse loginUsuario(LoginRequest loginRequest) {
         try {
             Usuario usuario = null;
 
-            // Buscar por correo electrónico
             if (loginRequest.getCorreoElectronico() != null &&
                     !loginRequest.getCorreoElectronico().isEmpty()) {
                 Optional<Usuario> usuarioOpt = usuarioRepository
@@ -80,7 +59,6 @@ public class UsuarioService {
                 }
                 usuario = usuarioOpt.get();
             }
-            // Buscar por teléfono
             else if (loginRequest.getTelefono() != null &&
                     !loginRequest.getTelefono().isEmpty()) {
                 Optional<Usuario> usuarioOpt = usuarioRepository
@@ -91,26 +69,21 @@ public class UsuarioService {
                 }
                 usuario = usuarioOpt.get();
             } else {
-                return ApiResponse.error("Debe proporcionar correo o teléfono");
+                return ApiResponse.error("Debe proporcionar correo o telefono");
             }
 
-            // Verificar contraseña
             if (!usuario.getContrasena().equals(loginRequest.getContrasena())) {
-                return ApiResponse.error("Contraseña incorrecta");
+                return ApiResponse.error("Contrasena incorrecta");
             }
 
-            // Login exitoso - Limpiar contraseña antes de devolver
             usuario.setContrasena(null);
-            return ApiResponse.success("Autenticación satisfactoria", usuario);
+            return ApiResponse.success("Autenticacion satisfactoria", usuario);
 
         } catch (Exception e) {
-            return ApiResponse.error("Error en la autenticación: " + e.getMessage());
+            return ApiResponse.error("Error en la autenticacion: " + e.getMessage());
         }
     }
 
-    /**
-     * Actualiza un usuario existente
-     */
     public ApiResponse actualizarUsuario(Integer id, Usuario usuarioDetails) {
         try {
             Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
@@ -121,48 +94,67 @@ public class UsuarioService {
 
             Usuario usuario = optionalUsuario.get();
 
-            // Actualizar campos
-            usuario.setNombres(usuarioDetails.getNombres());
-            usuario.setApellidos(usuarioDetails.getApellidos());
-            usuario.setGenero(usuarioDetails.getGenero());
-            usuario.setFechaNacimiento(usuarioDetails.getFechaNacimiento());
+            if (usuarioDetails.getNombres() != null) {
+                usuario.setNombres(usuarioDetails.getNombres());
+            }
+            
+            if (usuarioDetails.getApellidos() != null) {
+                usuario.setApellidos(usuarioDetails.getApellidos());
+            }
+            
+            if (usuarioDetails.getGenero() != null) {
+                usuario.setGenero(usuarioDetails.getGenero());
+            }
+            
+            if (usuarioDetails.getFechaNacimiento() != null) {
+                usuario.setFechaNacimiento(usuarioDetails.getFechaNacimiento());
+            }
 
-            // Verificar si el nuevo correo ya existe (si es diferente)
-            if (!usuario.getCorreoElectronico().equals(usuarioDetails.getCorreoElectronico())) {
+            if (usuarioDetails.getRol() != null) {
+                usuario.setRol(usuarioDetails.getRol());
+                System.out.println("Actualizando rol de usuario " + id + " a: " + usuarioDetails.getRol());
+            }
+
+            if (usuarioDetails.getCorreoElectronico() != null && 
+                !usuario.getCorreoElectronico().equals(usuarioDetails.getCorreoElectronico())) {
                 if (usuarioRepository.existsByCorreoElectronico(usuarioDetails.getCorreoElectronico())) {
-                    return ApiResponse.error("El correo electrónico ya está en uso");
+                    return ApiResponse.error("El correo electronico ya esta en uso");
                 }
                 usuario.setCorreoElectronico(usuarioDetails.getCorreoElectronico());
             }
 
-            // Verificar si el nuevo teléfono ya existe (si es diferente)
             if (usuarioDetails.getTelefono() != null &&
                     !usuarioDetails.getTelefono().equals(usuario.getTelefono())) {
                 if (usuarioRepository.existsByTelefono(usuarioDetails.getTelefono())) {
-                    return ApiResponse.error("El teléfono ya está en uso");
+                    return ApiResponse.error("El telefono ya esta en uso");
                 }
                 usuario.setTelefono(usuarioDetails.getTelefono());
             }
 
-            // Actualizar contraseña solo si se proporciona una nueva
             if (usuarioDetails.getContrasena() != null &&
                     !usuarioDetails.getContrasena().isEmpty()) {
                 usuario.setContrasena(usuarioDetails.getContrasena());
             }
 
             Usuario usuarioActualizado = usuarioRepository.save(usuario);
+            
+            System.out.println("Usuario actualizado exitosamente:");
+            System.out.println("ID: " + usuarioActualizado.getIdUsuario());
+            System.out.println("Nombres: " + usuarioActualizado.getNombres());
+            System.out.println("Apellidos: " + usuarioActualizado.getApellidos());
+            System.out.println("Rol: " + usuarioActualizado.getRol());
+            
             usuarioActualizado.setContrasena(null);
 
             return ApiResponse.success("Usuario actualizado exitosamente", usuarioActualizado);
 
         } catch (Exception e) {
+            System.err.println("Error al actualizar usuario: " + e.getMessage());
+            e.printStackTrace();
             return ApiResponse.error("Error al actualizar usuario: " + e.getMessage());
         }
     }
 
-    /**
-     * Elimina un usuario
-     */
     public ApiResponse eliminarUsuario(Integer id) {
         try {
             if (!usuarioRepository.existsById(id)) {

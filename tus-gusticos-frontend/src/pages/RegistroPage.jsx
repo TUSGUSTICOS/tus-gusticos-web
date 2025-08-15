@@ -1,4 +1,4 @@
-// RegistroPage.jsx - Página de registro simplificada
+// RegistroPage.jsx - Página de registro con género corregido
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registrarUsuario } from "../services/usuarioService";
@@ -47,7 +47,7 @@ function RegistroPage() {
     } catch (err) {
       // Manejar errores
       if (err.response && err.response.status === 409) {
-        setError("El correo o teléfono ya está registrado");
+        setError("El correo o telefono ya esta registrado");
       } else {
         setError("Error al registrar usuario");
       }
@@ -89,7 +89,7 @@ function RegistroPage() {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Género *</label>
+            <label>Genero *</label>
             <select 
               name="genero" 
               onChange={manejarCambio}
@@ -97,10 +97,10 @@ function RegistroPage() {
               required
               disabled={loading}
             >
-              <option value="">Seleccione género</option>
+              <option value="">Seleccione genero</option>
               <option value="masculino">Masculino</option>
               <option value="femenino">Femenino</option>
-              <option value="otro">Otro</option>
+              <option value="otro">Prefiero no decirlo</option>
             </select>
           </div>
 
@@ -119,7 +119,7 @@ function RegistroPage() {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Correo Electrónico *</label>
+            <label>Correo Electronico *</label>
             <input 
               type="email" 
               name="correoElectronico" 
@@ -132,7 +132,7 @@ function RegistroPage() {
           </div>
 
           <div className="form-group">
-            <label>Teléfono *</label>
+            <label>Telefono *</label>
             <input 
               name="telefono" 
               placeholder="3001234567" 
@@ -149,7 +149,7 @@ function RegistroPage() {
           <input 
             type="password" 
             name="contrasena" 
-            placeholder="Mínimo 6 caracteres" 
+            placeholder="Minimo 6 caracteres" 
             onChange={manejarCambio}
             value={usuario.contrasena}
             required 

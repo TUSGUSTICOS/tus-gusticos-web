@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "70fbe5e9-894f-446a-8313-1951c9d4cccc",
+		"name": "PEDIDOS",
+		"description": "Colección de Postman para probar los endpoints de Pedidos en Tus Gusticos.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47473689",
+		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-70fbe5e9-894f-446a-8313-1951c9d4cccc?action=share&source=collection_link&creator=47473689"
+	},
+	"item": [
+		{
+			"name": "Crear pedido",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id_usuario\": 16,\n  \"items\": [\n    {\n      \"id_plato\": 1,\n      \"cantidad\": 1,\n      \"precio_unitario\": 12000.0\n    },\n    {\n      \"id_plato\": 14,\n      \"cantidad\": 1,\n      \"precio_unitario\": 38000.0\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos"
+					]
+				},
+				"description": "Crea un pedido para un usuario con una lista de items."
+			},
+			"response": []
+		},
+		{
+			"name": "Listar pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener pedido por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/{{idPedido}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"{{idPedido}}"
+					]
+				},
+				"description": "Usa una variable de entorno o reemplaza {{idPedido}} por el ID real."
+			},
+			"response": []
+		},
+		{
+			"name": "Listar pedidos por usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/usuario/{{idUsuario}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"usuario",
+						"{{idUsuario}}"
+					]
+				},
+				"description": "Reemplaza {{idUsuario}} por el ID del usuario."
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar estado de pedido",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/{{idPedido}}/estado?estado={{nuevoEstado}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"{{idPedido}}",
+						"estado"
+					],
+					"query": [
+						{
+							"key": "estado",
+							"value": "{{nuevoEstado}}"
+						}
+					]
+				},
+				"description": "Valores válidos de estado: Pendiente, Cancelado, Enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar pedido",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/{{idPedido}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos",
+						"{{idPedido}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

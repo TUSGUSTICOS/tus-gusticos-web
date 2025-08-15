@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "71b34145-dcc1-4492-a1c8-9627f1c19b5d",
+		"name": "GESTIÓN DE PLATOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47473689",
+		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-71b34145-dcc1-4492-a1c8-9627f1c19b5d?action=share&source=collection_link&creator=47473689"
+	},
+	"item": [
+		{
+			"name": "Obtener todos los platos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener platos por categoría",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un plato específico",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Crear nuevo plato",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Tacos Mexicanos\",\r\n  \"descripcion\": \"Deliciosos tacos con carne, verduras frescas y salsa picante\",\r\n  \"precio\": 16000,\r\n  \"imagenUrl\": \"/imagenes/platos/tacos-mexicanos.jpg\",\r\n  \"categoria\": {\r\n    \"idCategoria\": 1\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/platos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"platos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar plato existente",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Arroz con Pollo Premium\",\r\n  \"descripcion\": \"Arroz amarillo con pollo, verduras frescas y especias gourmet - Versión mejorada\",\r\n  \"precio\": 15000,\r\n  \"imagenUrl\": \"/imagenes/platos/arroz-con-pollo.jpg\",\r\n  \"categoria\": {\r\n    \"idCategoria\": 1\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/platos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"platos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar plato",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Arroz con Pollo Premium\",\r\n  \"descripcion\": \"Arroz amarillo con pollo, verduras frescas y especias gourmet - Versión mejorada\",\r\n  \"precio\": 15000,\r\n  \"imagenUrl\": \"/imagenes/platos/arroz-con-pollo.jpg\",\r\n  \"categoria\": {\r\n    \"idCategoria\": 1\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/platos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"platos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

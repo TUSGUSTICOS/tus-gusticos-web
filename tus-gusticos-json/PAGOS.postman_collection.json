@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "c4b0f52c-0166-4191-b967-33730060f55b",
+		"name": "PAGOS",
+		"description": "Colección de Postman para probar los endpoints de pagos de Tus Gusticos.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47473689",
+		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-c4b0f52c-0166-4191-b967-33730060f55b?action=share&source=collection_link&creator=47473689"
+	},
+	"item": [
+		{
+			"name": "Procesar pago",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id_pedido\": 5,\n  \"metodo_pago\": \"Credito\",\n  \"monto\": 55000.0\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/pagos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar pagos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pagos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener pago por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pagos/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pagos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagos por pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pagos/pedido/5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pagos",
+						"pedido",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar estado de pago",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pagos/1/estado?estado=Confirmado",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pagos",
+						"1",
+						"estado"
+					],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Confirmado"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar pago",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pagos/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pagos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api"
+		}
+	]
+}

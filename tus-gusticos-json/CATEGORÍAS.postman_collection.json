@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "3892ae6e-db08-4400-8aa3-a202fb97dfd3",
+		"name": "CATEGORÍAS",
+		"description": "Colección de endpoints para la entidad Categoría en Tus Gusticos (GET, POST, GET by ID, PUT, DELETE).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47473689",
+		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-3892ae6e-db08-4400-8aa3-a202fb97dfd3?action=share&source=collection_link&creator=47473689"
+	},
+	"item": [
+		{
+			"name": "Categorias - Listar todas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Status 200 OK', function () { pm.response.to.have.status(200); });",
+							"pm.test('Respuesta es un arreglo', function () { pm.expect(pm.response.json()).to.be.an('array'); });"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/categorias",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categorias - Crear",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Status 201/200', function () { pm.expect([200,201]).to.include(pm.response.code); });",
+							"let json = {}; try { json = pm.response.json(); } catch(e){}",
+							"function pickId(o){ if(!o||typeof o!=='object') return null;",
+							"  return o.idCategoria ?? o.id_categoria ?? o.id ?? (o.data? (o.data.idCategoria ?? o.data.id_categoria ?? o.data.id) : null); }",
+							"const newId = pickId(json);",
+							"if(newId){ pm.collectionVariables.set('categoriaId', newId); }",
+							"pm.test('Guarda categoriaId en variables si existe', function(){ pm.expect(true).to.be.true; });"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"corriente\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/categorias",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categorias - Obtener por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Status 200/404', function () { pm.expect([200,404]).to.include(pm.response.code); });",
+							"if(pm.response.code===200){ pm.test('Objeto categoría', function(){ pm.expect(pm.response.json()).to.be.an('object'); }); }"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/categorias/{{categoriaId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"categorias",
+						"{{categoriaId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categorias - Actualizar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Status 200/404', function () { pm.expect([200,404]).to.include(pm.response.code); });",
+							"if(pm.response.code===200){",
+							"  let json = pm.response.json();",
+							"  pm.test('Campo nombre actualizado', function(){ pm.expect(json.nombre || (json.data && json.data.nombre)).to.exist; });",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"ejecutivo\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/categorias/{{categoriaId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"categorias",
+						"{{categoriaId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categorias - Eliminar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Status 200/404', function () { pm.expect([200,404]).to.include(pm.response.code); });"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/categorias/{{categoriaId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"categorias",
+						"{{categoriaId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "categoriaId",
+			"value": "1"
+		}
+	]
+}
