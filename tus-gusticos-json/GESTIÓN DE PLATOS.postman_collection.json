@@ -1,38 +1,88 @@
 {
 	"info": {
-		"_postman_id": "71b34145-dcc1-4492-a1c8-9627f1c19b5d",
+		"_postman_id": "22b1b0aa-c236-4525-98f7-4333b638e7f9",
 		"name": "GESTIÓN DE PLATOS",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "47473689",
-		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-71b34145-dcc1-4492-a1c8-9627f1c19b5d?action=share&source=collection_link&creator=47473689"
+		"description": "Colección completa para testing de endpoints de gestión de platos del proyecto Tus Gusticos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Obtener todos los platos",
+			"name": "Listar Todos los Platos",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/platos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "platos"]
+				},
+				"description": "Obtener lista completa de todos los platos disponibles"
+			}
 		},
 		{
-			"name": "Obtener platos por categoría",
+			"name": "Platos por Categoría - Corriente",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/platos/categoria/corriente",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "platos", "categoria", "corriente"]
+				},
+				"description": "Obtener platos de la categoría corriente"
+			}
 		},
 		{
-			"name": "Obtener un plato específico",
+			"name": "Platos por Categoría - Ejecutivo",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/platos/categoria/ejecutivo",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "platos", "categoria", "ejecutivo"]
+				},
+				"description": "Obtener platos de la categoría ejecutivo"
+			}
 		},
 		{
-			"name": "Crear nuevo plato",
+			"name": "Platos por Categoría - Carta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/platos/categoria/carta",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "platos", "categoria", "carta"]
+				},
+				"description": "Obtener platos de la categoría carta"
+			}
+		},
+		{
+			"name": "Obtener Plato por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/platos/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "platos", "1"]
+				},
+				"description": "Obtener información detallada de un plato específico"
+			}
+		},
+		{
+			"name": "Crear Nuevo Plato",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -44,7 +94,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nombre\": \"Tacos Mexicanos\",\r\n  \"descripcion\": \"Deliciosos tacos con carne, verduras frescas y salsa picante\",\r\n  \"precio\": 16000,\r\n  \"imagenUrl\": \"/imagenes/platos/tacos-mexicanos.jpg\",\r\n  \"categoria\": {\r\n    \"idCategoria\": 1\r\n  }\r\n}",
+					"raw": "{\n    \"nombre\": \"Lasaña de Carne\",\n    \"descripcion\": \"Deliciosa lasaña con carne molida, salsa boloñesa y queso gratinado\",\n    \"precio\": 18000.00,\n    \"imagenUrl\": \"/imagenes/platos/lasana-carne.jpg\",\n    \"categoria\": {\n        \"idCategoria\": 2\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -54,20 +104,15 @@
 				"url": {
 					"raw": "http://localhost:8080/api/platos",
 					"protocol": "http",
-					"host": [
-						"localhost"
-					],
+					"host": ["localhost"],
 					"port": "8080",
-					"path": [
-						"api",
-						"platos"
-					]
-				}
-			},
-			"response": []
+					"path": ["api", "platos"]
+				},
+				"description": "Crear un nuevo plato en el menú (solo administradores)"
+			}
 		},
 		{
-			"name": "Actualizar plato existente",
+			"name": "Actualizar Plato",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -79,7 +124,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nombre\": \"Arroz con Pollo Premium\",\r\n  \"descripcion\": \"Arroz amarillo con pollo, verduras frescas y especias gourmet - Versión mejorada\",\r\n  \"precio\": 15000,\r\n  \"imagenUrl\": \"/imagenes/platos/arroz-con-pollo.jpg\",\r\n  \"categoria\": {\r\n    \"idCategoria\": 1\r\n  }\r\n}",
+					"raw": "{\n    \"nombre\": \"Arroz con Pollo Premium\",\n    \"descripcion\": \"Arroz amarillo con pollo de la casa, verduras frescas y especias especiales\",\n    \"precio\": 14000.00,\n    \"imagenUrl\": \"/imagenes/platos/arroz-con-pollo.jpg\",\n    \"categoria\": {\n        \"idCategoria\": 1\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,54 +134,27 @@
 				"url": {
 					"raw": "http://localhost:8080/api/platos/1",
 					"protocol": "http",
-					"host": [
-						"localhost"
-					],
+					"host": ["localhost"],
 					"port": "8080",
-					"path": [
-						"api",
-						"platos",
-						"1"
-					]
-				}
-			},
-			"response": []
+					"path": ["api", "platos", "1"]
+				},
+				"description": "Actualizar información de un plato existente"
+			}
 		},
 		{
-			"name": "Eliminar plato",
+			"name": "Eliminar Plato",
 			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"nombre\": \"Arroz con Pollo Premium\",\r\n  \"descripcion\": \"Arroz amarillo con pollo, verduras frescas y especias gourmet - Versión mejorada\",\r\n  \"precio\": 15000,\r\n  \"imagenUrl\": \"/imagenes/platos/arroz-con-pollo.jpg\",\r\n  \"categoria\": {\r\n    \"idCategoria\": 1\r\n  }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
+				"method": "DELETE",
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/platos/1",
+					"raw": "http://localhost:8080/api/platos/17",
 					"protocol": "http",
-					"host": [
-						"localhost"
-					],
+					"host": ["localhost"],
 					"port": "8080",
-					"path": [
-						"api",
-						"platos",
-						"1"
-					]
-				}
-			},
-			"response": []
+					"path": ["api", "platos", "17"]
+				},
+				"description": "Eliminar un plato del menú (solo administradores)"
+			}
 		}
 	]
 }

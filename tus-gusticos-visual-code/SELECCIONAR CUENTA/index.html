@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Cuenta - Tus Gusticos</title>
+  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="registro-container">
+    <div class="header">
+      <a href="#" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
+      <h2 class="title">RECUPERA TU CUENTA</h2>
+    </div>
+    
+    <div class="profile-photo-container">
+      <img src="perfil.png" alt="Foto de perfil" class="profile-image">
+    </div>
+    
+    <div class="form-container">
+      <div class="question-block">
+        <h3 class="question">Camilo Sanchez</h3>
+        <p class="instruction">Elije un método para recuperar tu cuenta</p>
+        
+        <!-- Opciones de recuperación con el estilo de gender-selection -->
+        <div class="gender-selection">
+          <label class="gender-option">
+            <span>Obtener código por correo electrónico</span>
+            <span class="option-detail">n*********9@gmail.com</span>
+            <input type="radio" name="recovery" value="email">
+          </label>
+          
+          <label class="gender-option">
+            <span>Obtener código por número de celular</span>
+            <span class="option-detail">+57 3********8</span>
+            <input type="radio" name="recovery" value="phone">
+          </label>
+        </div>
+        
+        <button class="btn-siguiente">Siguiente</button>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <a href="#" class="reset-link">Crear cuenta</a>
+    </div>
+  </div>
+</body>
+</html>

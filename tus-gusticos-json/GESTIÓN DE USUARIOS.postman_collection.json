@@ -2,42 +2,24 @@
 	"info": {
 		"_postman_id": "88b1b0aa-b136-4525-98f7-4333b638e7f9",
 		"name": "GESTIÓN DE USUARIOS",
-		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "47473689",
-		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-88b1b0aa-b136-4525-98f7-4333b638e7f9?action=share&source=collection_link&creator=47473689"
+		"description": "Colección completa para testing de endpoints de gestión de usuarios del proyecto Tus Gusticos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Crear nuevo usuario",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
+			"name": "Login - Iniciar Sesión",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text",
-						"disabled": true
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nombre\": \"Pedro Pérez\",\n    \"correo\": \"pedro@example.com\",\n    \"contrasena\": \"clave456\",\n    \"rol\": \"cliente\"\n}\n\n\n\n\n\n\n\n\n\n\n",
+					"raw": "{\n    \"correoElectronico\": \"admin@tusgusticos.com\",\n    \"contrasena\": \"admin123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -45,38 +27,77 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/usuarios",
+					"raw": "http://localhost:8080/api/login",
 					"protocol": "http",
-					"host": [
-						"localhost"
-					],
+					"host": ["localhost"],
 					"port": "8080",
-					"path": [
-						"usuarios"
-					]
+					"path": ["api", "login"]
 				},
-				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-			},
-			"response": []
+				"description": "Autenticación de usuario con email y contraseña"
+			}
 		},
 		{
-			"name": "Obtener todos los usuarios",
+			"name": "Registro - Crear Nuevo Usuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombres\": \"Pedro\",\n    \"apellidos\": \"Pérez\",\n    \"genero\": \"MASCULINO\",\n    \"fechaNacimiento\": \"1990-05-15\",\n    \"correoElectronico\": \"pedro.perez@email.com\",\n    \"telefono\": \"3101234567\",\n    \"contrasena\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/registro",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "registro"]
+				},
+				"description": "Registro de nuevo usuario en el sistema"
+			}
+		},
+		{
+			"name": "Listar Todos los Usuarios",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "usuarios"]
+				},
+				"description": "Obtener lista completa de usuarios (solo administradores)"
+			}
 		},
 		{
-			"name": "Obtener un usuario específico",
+			"name": "Obtener Usuario por ID",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios/16",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "usuarios", "16"]
+				},
+				"description": "Obtener información de un usuario específico por su ID"
+			}
 		},
 		{
-			"name": "Actualizar usuario existente",
+			"name": "Actualizar Usuario",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -88,7 +109,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombres\": \"Camilo\",\r\n    \"apellidos\": \"Lopez\",\r\n    \"genero\": \"MASCULINO\",\r\n    \"fechaNacimiento\": \"2000-05-12\",\r\n    \"correoElectronico\": \"camilp@example.com\",\r\n    \"telefono\": \"300057896\",\r\n    \"contrasena\": \"123456\"\r\n}\r\n",
+					"raw": "{\n    \"nombres\": \"Pedro Antonio\",\n    \"apellidos\": \"Pérez García\",\n    \"genero\": \"MASCULINO\",\n    \"fechaNacimiento\": \"1990-05-15\",\n    \"correoElectronico\": \"pedro.antonio@email.com\",\n    \"telefono\": \"3201234567\",\n    \"rol\": \"Cliente\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,63 +117,44 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/usuarios/6",
+					"raw": "http://localhost:8080/api/usuarios/18",
 					"protocol": "http",
-					"host": [
-						"localhost"
-					],
+					"host": ["localhost"],
 					"port": "8080",
-					"path": [
-						"api",
-						"usuarios",
-						"6"
-					]
-				}
-			},
-			"response": []
+					"path": ["api", "usuarios", "18"]
+				},
+				"description": "Actualizar información de un usuario existente"
+			}
 		},
 		{
-			"name": "Eliminar Usuarios",
+			"name": "Eliminar Usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios/20",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "usuarios", "20"]
+				},
+				"description": "Eliminar un usuario del sistema (solo administradores)"
+			}
+		},
+		{
+			"name": "Test Servidor",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Inicio de sesion",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"correoElectronico\": \"\",\r\n    \"contrasena\": \"\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/login",
+					"raw": "http://localhost:8080/api/test",
 					"protocol": "http",
-					"host": [
-						"localhost"
-					],
+					"host": ["localhost"],
 					"port": "8080",
-					"path": [
-						"api",
-						"login"
-					]
-				}
-			},
-			"response": []
+					"path": ["api", "test"]
+				},
+				"description": "Endpoint de prueba para verificar que el servidor está funcionando"
+			}
 		}
 	]
 }
