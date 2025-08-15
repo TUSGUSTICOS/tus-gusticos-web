@@ -384,6 +384,6 @@ Si encuentras algún problema durante la instalación o ejecución:
 
 ---
 
-**Desarrollado por:** [Johan Smith Mesa Rodriguez]  
+**Desarrollado por:** Johan Smith Mesa Rodriguez
 **Institución:** SENA  
 **Año:** 2025
