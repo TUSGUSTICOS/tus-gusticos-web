@@ -134,6 +134,4 @@ echo ├── postman/           (Colecciones API)
 echo ├── documentacion/     (Docs técnicos)
 echo └── INSTRUCCIONES-EJECUCION.txt
 echo.
-echo 🎯 Listo para entregar al SENA
-echo.
 pause
