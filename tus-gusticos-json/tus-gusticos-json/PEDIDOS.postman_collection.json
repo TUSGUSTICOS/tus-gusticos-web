@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "33b1b0aa-d336-4525-98f7-4333b638e7f9",
+		"name": "PEDIDOS",
+		"description": "Colección completa para testing de endpoints de gestión de pedidos del proyecto Tus Gusticos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Nuevo Pedido",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_usuario\": 16,\n    \"items\": [\n        {\n            \"id_plato\": 1,\n            \"cantidad\": 2,\n            \"precio_unitario\": 12000.00\n        },\n        {\n            \"id_plato\": 2,\n            \"cantidad\": 1,\n            \"precio_unitario\": 15000.00\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos"]
+				},
+				"description": "Crear un nuevo pedido con múltiples productos"
+			}
+		},
+		{
+			"name": "Listar Todos los Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos"]
+				},
+				"description": "Obtener lista completa de todos los pedidos (administradores)"
+			}
+		},
+		{
+			"name": "Obtener Pedido por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/45",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos", "45"]
+				},
+				"description": "Obtener información detallada de un pedido específico"
+			}
+		},
+		{
+			"name": "Pedidos por Usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/usuario/16",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos", "usuario", "16"]
+				},
+				"description": "Obtener historial de pedidos de un usuario específico"
+			}
+		},
+		{
+			"name": "Actualizar Estado Pedido - Pendiente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/45/estado?estado=Pendiente",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos", "45", "estado"],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Pendiente"
+						}
+					]
+				},
+				"description": "Cambiar estado del pedido a Pendiente"
+			}
+		},
+		{
+			"name": "Actualizar Estado Pedido - Cancelado",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/45/estado?estado=Cancelado",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos", "45", "estado"],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Cancelado"
+						}
+					]
+				},
+				"description": "Cambiar estado del pedido a Cancelado"
+			}
+		},
+		{
+			"name": "Actualizar Estado Pedido - Enviado",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/45/estado?estado=Enviado",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos", "45", "estado"],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Enviado"
+						}
+					]
+				},
+				"description": "Cambiar estado del pedido a Enviado"
+			}
+		},
+		{
+			"name": "Eliminar Pedido",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos/47",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pedidos", "47"]
+				},
+				"description": "Eliminar un pedido del sistema (solo si no tiene pago confirmado)"
+			}
+		}
+	]
+}

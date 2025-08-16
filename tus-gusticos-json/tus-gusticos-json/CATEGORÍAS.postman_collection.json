@@ -1,0 +1,52 @@
+{
+	"info": {
+		"_postman_id": "94acbd58-4cec-49e6-8fb5-7f26b86478c1",
+		"name": "CATEGORÍAS",
+		"description": "Colección de endpoints para la entidad Categoría en Tus Gusticos (GET, POST, GET by ID, PUT, DELETE).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47473689",
+		"_collection_link": "https://paginam9-9237571.postman.co/workspace/TUS-GUSTICOS-WEB~d3235acc-2e07-458c-8508-3c5adbd1b533/collection/47473689-94acbd58-4cec-49e6-8fb5-7f26b86478c1?action=share&source=collection_link&creator=47473689"
+	},
+	"item": [
+		{
+			"name": "Categorias - Listar todas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Status 200 OK', function () { pm.response.to.have.status(200); });",
+							"pm.test('Respuesta es un arreglo', function () { pm.expect(pm.response.json()).to.be.an('array'); });"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/categorias",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "categoriaId",
+			"value": "1"
+		}
+	]
+}

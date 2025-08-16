@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "44b1b0aa-e436-4525-98f7-4333b638e7f9",
+		"name": "PAGOS",
+		"description": "Colección completa para testing de endpoints de gestión de pagos del proyecto Tus Gusticos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Procesar Pago - Tarjeta de Crédito",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_pedido\": 45,\n    \"metodo_pago\": \"Credito\",\n    \"monto\": 39000.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pagos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos"]
+				},
+				"description": "Procesar pago con tarjeta de crédito"
+			}
+		},
+		{
+			"name": "Procesar Pago - Tarjeta de Débito",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_pedido\": 46,\n    \"metodo_pago\": \"Debito\",\n    \"monto\": 25000.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pagos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos"]
+				},
+				"description": "Procesar pago con tarjeta de débito"
+			}
+		},
+		{
+			"name": "Procesar Pago - Nequi",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_pedido\": 47,\n    \"metodo_pago\": \"Nequi\",\n    \"monto\": 18000.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pagos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos"]
+				},
+				"description": "Procesar pago con Nequi"
+			}
+		},
+		{
+			"name": "Listar Todos los Pagos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos"]
+				},
+				"description": "Obtener lista completa de todos los pagos (administradores)"
+			}
+		},
+		{
+			"name": "Obtener Pago por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos/23",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos", "23"]
+				},
+				"description": "Obtener información detallada de un pago específico"
+			}
+		},
+		{
+			"name": "Pagos por Pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos/pedido/45",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos", "pedido", "45"]
+				},
+				"description": "Obtener todos los pagos asociados a un pedido específico"
+			}
+		},
+		{
+			"name": "Actualizar Estado Pago - Confirmado",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos/23/estado?estado=Confirmado",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos", "23", "estado"],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Confirmado"
+						}
+					]
+				},
+				"description": "Cambiar estado del pago a Confirmado"
+			}
+		},
+		{
+			"name": "Actualizar Estado Pago - Rechazado",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos/23/estado?estado=Rechazado",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos", "23", "estado"],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Rechazado"
+						}
+					]
+				},
+				"description": "Cambiar estado del pago a Rechazado"
+			}
+		},
+		{
+			"name": "Actualizar Estado Pago - Pendiente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos/23/estado?estado=Pendiente",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos", "23", "estado"],
+					"query": [
+						{
+							"key": "estado",
+							"value": "Pendiente"
+						}
+					]
+				},
+				"description": "Cambiar estado del pago a Pendiente"
+			}
+		},
+		{
+			"name": "Eliminar Pago",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pagos/24",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "pagos", "24"]
+				},
+				"description": "Eliminar un pago del sistema"
+			}
+		}
+	]
+}
