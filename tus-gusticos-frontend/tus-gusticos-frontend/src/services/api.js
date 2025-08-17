@@ -7,9 +7,8 @@ const getBaseURL = () => {
     return "http://localhost:8080";
   }
   
-  // Si estamos en producción, usar la URL del backend desplegado
-  // IMPORTANTE: Reemplaza esta URL por la que te dé Railway cuando despliegues el backend
-  return "https://tu-app-backend.railway.app";
+  // Si estamos en producción, usar la URL del backend desplegado en Railway
+  return "https://tusgusticosintellij-production.up.railway.app";
 };
 
 export default axios.create({

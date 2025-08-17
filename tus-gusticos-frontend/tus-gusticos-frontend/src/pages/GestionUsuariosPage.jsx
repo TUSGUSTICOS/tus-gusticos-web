@@ -1,7 +1,15 @@
-// GestionUsuariosPage.jsx - CORREGIDO: actualizaciones se guardan en SQL
+// GestionUsuariosPage.jsx - CORREGIDO: URLs dinámicas según entorno - VERSIÓN COMPLETA
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './GestionUsuariosPage.css';
+
+// Función helper para obtener la URL base según el entorno
+const getBaseUrl = () => {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:8080';
+  }
+  return 'https://tusgusticosintellij-production.up.railway.app';
+};
 
 function GestionUsuariosPage() {
   const navigate = useNavigate();
@@ -33,7 +41,8 @@ function GestionUsuariosPage() {
   const cargarUsuarios = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/usuarios');
+      const baseUrl = getBaseUrl();
+      const response = await fetch(`${baseUrl}/api/usuarios`);
       if (response.ok) {
         const usuariosData = await response.json();
         setUsuarios(usuariosData);
@@ -90,9 +99,12 @@ function GestionUsuariosPage() {
       };
 
       console.log('Datos finales a enviar:', datosActualizados);
-      console.log('URL de actualización:', `http://localhost:8080/api/usuarios/${usuarioEditando.idUsuario}`);
+      
+      const baseUrl = getBaseUrl();
+      const url = `${baseUrl}/api/usuarios/${usuarioEditando.idUsuario}`;
+      console.log('URL de actualización:', url);
 
-      const response = await fetch(`http://localhost:8080/api/usuarios/${usuarioEditando.idUsuario}`, {
+      const response = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -152,7 +164,8 @@ function GestionUsuariosPage() {
     setLoading(true);
     
     try {
-      const response = await fetch(`http://localhost:8080/api/usuarios/${usuarioAEliminar.idUsuario}`, {
+      const baseUrl = getBaseUrl();
+      const response = await fetch(`${baseUrl}/api/usuarios/${usuarioAEliminar.idUsuario}`, {
         method: 'DELETE'
       });
 

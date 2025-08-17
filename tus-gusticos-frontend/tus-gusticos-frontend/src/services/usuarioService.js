@@ -8,9 +8,8 @@ const getApiUrl = () => {
     return 'http://localhost:8080/api';
   }
   
-  // Si estamos en producción, usar la URL del backend desplegado
-  // IMPORTANTE: Reemplaza esta URL por la que te dé Railway cuando despliegues el backend
-  return 'https://tu-app-backend.railway.app/api';
+  // Si estamos en producción, usar la URL del backend desplegado en Railway
+  return 'https://tusgusticosintellij-production.up.railway.app/api';
 };
 
 const API_URL = getApiUrl();
@@ -226,7 +225,7 @@ export const obtenerCategorias = async () => {
  */
 export const crearPedido = async (pedidoData) => {
   try {
-    console.log('🔍 Enviando pedido:', pedidoData);
+    console.log('📝 Enviando pedido:', pedidoData);
 
     // Validaciones básicas
     if (!pedidoData.id_usuario) {
@@ -271,7 +270,7 @@ export const crearPedido = async (pedidoData) => {
  */
 export const procesarPago = async (pagoData) => {
   try {
-    console.log('🔍 Datos de pago recibidos:', pagoData);
+    console.log('📝 Datos de pago recibidos:', pagoData);
 
     // Validaciones básicas
     if (!pagoData.id_pedido) {

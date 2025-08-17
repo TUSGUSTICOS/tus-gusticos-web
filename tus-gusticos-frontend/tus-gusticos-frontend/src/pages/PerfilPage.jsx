@@ -1,8 +1,16 @@
-// PerfilPage.jsx - COMPLETAMENTE CORREGIDO: género y historial funcionando
+// PerfilPage.jsx - CORREGIDO: URLs dinámicas según entorno
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { actualizarUsuario } from '../services/usuarioService';
 import './PerfilPage.css';
+
+// Función helper para obtener la URL base según el entorno
+const getBaseUrl = () => {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:8080';
+  }
+  return 'https://tusgusticosintellij-production.up.railway.app';
+};
 
 function PerfilPage() {
   const navigate = useNavigate();
@@ -42,7 +50,8 @@ function PerfilPage() {
     try {
       console.log('Cargando historial para usuario:', idUsuario);
       
-      const response = await fetch(`http://localhost:8080/api/pedidos/usuario/${idUsuario}`);
+      const baseUrl = getBaseUrl();
+      const response = await fetch(`${baseUrl}/api/pedidos/usuario/${idUsuario}`);
       const resultado = await response.json();
       
       console.log('Respuesta del historial:', resultado);
@@ -139,8 +148,10 @@ function PerfilPage() {
     try {
       console.log('Cancelando pedido:', pedidoACancelar.idPedido);
       
+      const baseUrl = getBaseUrl();
+      
       // Actualizar estado del pedido a 'Cancelado'
-      const responsePedido = await fetch(`http://localhost:8080/api/pedidos/${pedidoACancelar.idPedido}/estado?estado=Cancelado`, {
+      const responsePedido = await fetch(`${baseUrl}/api/pedidos/${pedidoACancelar.idPedido}/estado?estado=Cancelado`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -151,14 +162,14 @@ function PerfilPage() {
         console.log('Pedido cancelado exitosamente');
         
         // Buscar el pago asociado y marcarlo como 'Rechazado'
-        const responsePagos = await fetch(`http://localhost:8080/api/pagos/pedido/${pedidoACancelar.idPedido}`);
+        const responsePagos = await fetch(`${baseUrl}/api/pagos/pedido/${pedidoACancelar.idPedido}`);
         const resultadoPagos = await responsePagos.json();
         
         if (resultadoPagos.success && resultadoPagos.data && resultadoPagos.data.length > 0) {
           const pago = resultadoPagos.data[0];
           console.log('Cancelando pago:', pago.idPago);
           
-          await fetch(`http://localhost:8080/api/pagos/${pago.idPago}/estado?estado=Rechazado`, {
+          await fetch(`${baseUrl}/api/pagos/${pago.idPago}/estado?estado=Rechazado`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
